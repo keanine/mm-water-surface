@@ -26,10 +26,17 @@ RECOMP_HOOK("Player_Action_60") void Player_Action_60(Player* this, PlayState* p
 }
 
 RECOMP_HOOK_RETURN("Player_Action_60") void Player_Action_60_Return() {
-    if ((gThis->actor.depthInWater - gThis->actor.velocity.y) < gThis->ageProperties->unk_30 + 5) {
-        func_80848250(gPlay, gThis);
-        func_808353DC(gPlay, gThis);
-        func_8082DC64(gPlay, gThis);
-        Player_AnimSfx_PlayVoice(gThis, NA_SE_VO_LI_BREATH_DRINK);
+    f32 relX = -(gPlay->state.input[0].rel.stick_x / 60.0);
+    f32 relY = (gPlay->state.input[0].rel.stick_y / 60.0);
+
+    if (relX != 0 || relY != 0) {
+        if ((gThis->actor.depthInWater - gThis->actor.velocity.y) < gThis->ageProperties->unk_30 + 5) {
+            if (gThis->skelAnime.curFrame < 5.0f) {
+                Player_AnimSfx_PlayVoice(gThis, NA_SE_VO_LI_BREATH_DRINK);
+            }
+            func_80848250(gPlay, gThis);
+            func_808353DC(gPlay, gThis);
+            func_8082DC64(gPlay, gThis);
+        }
     }
 }
