@@ -29,7 +29,7 @@ RECOMP_HOOK_RETURN("Player_Action_60") void Player_Action_60_Return() {
     f32 relX = -(gPlay->state.input[0].rel.stick_x / 60.0);
     f32 relY = (gPlay->state.input[0].rel.stick_y / 60.0);
 
-    if (relX != 0 || relY != 0) {
+    if (relX != 0 || relY != 0 || CHECK_BTN_ANY(gPlay->state.input[0].cur.button, BTN_CRIGHT | BTN_CLEFT | BTN_CDOWN | BTN_B | BTN_A)) {
         if ((gThis->actor.depthInWater - gThis->actor.velocity.y) < gThis->ageProperties->unk_30 + 5) {
             if (gThis->skelAnime.curFrame < 5.0f) {
                 Player_AnimSfx_PlayVoice(gThis, NA_SE_VO_LI_BREATH_DRINK);
